@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mom's Zoom Invitation</title>
+  </head>
+  <body>
+    <p>To send a Zoom invitation to Mom, paste it into the box below.</p>
+    <p>You need to put in the correct passcode as well.</p>
+    <p id="info"></p>
+    <div>
+    <label for="passcode">Passcode:</label>
+    <input id="passcode" name="passcode" type="password">
+    </div>
+    <div>
+        <label for="invite">Invitation</label>
+        <textarea id="invite" name="invite" rows="10" cols="40"></textarea>
+    </div>
+    <button id="send" type="button">Send</button>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+const info = document.getElementById("info")
+const send = document.getElementById("send")
+const passcode = document.getElementById("passcode")
+const invite = document.getElementById("invite")
+send.addEventListener("click", async () => {
+  passcodev = passcode.value;
+  invitev = invite.value;
+  if (!passcodev) {
+    info.innerText="You must enter a passcode."
+  } else if (!invitev) {
+    info.innerText="You must provide a Zoom invitation."
+  } else if (!invitev.includes("scheduled Zoom meeting") 
+    || !invitev.includes("https://")) {
+    info.innerText("You must provide a valid Zoom invitation.")
+  } else {
+    info.innerText=("Sending, please wait ...")
+    try {
+    const response = await fetch("/", { 
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            passcode: passcodev,
+            invite: invitev
+        })
+    })
+    const responsedata = await response.json()
+    if (response.status===200) {
+        info.innerText="The invitation has been sent."
+    } else {
+        info.innerText = responsedata.message
+    }
+    } catch(e) {
+        console.log(e)
+        info.innerText="A communication error occurred."
+    }
+  }
+})
+  
+});
+    </script>
+  </body>
+</html>
