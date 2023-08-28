@@ -14,12 +14,12 @@ app.post("/",async (req,res) => {
    } else {
       console.log("invitation: ", req.body.invite)
       const client = new ws(process.env.CONNECT_URL);
-      client.on(open) {
+      client.on(open, () => {
         client.send(JSON.stringify({action: 'sendmessage', 
         data: req.body.invite}));
         res.status(200).json({message: "The invitation has been sent to Mom."})
         client.close()
-      }
+      })
    }
 })
 
