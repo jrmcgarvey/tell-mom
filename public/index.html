@@ -8,6 +8,10 @@
   </head>
   <body>
     <p>To send a Zoom invitation to Mom, paste it into the box below.</p>
+    <p>The invitation should include a line that looks like this:</p>
+    <p><strong>https://us02web.zoom.us/j/111222333</strong></p>
+    <p>(except with a valid meeting number at the end.)</p>
+    <
     <p>You need to put in the correct passcode as well.</p>
     <p id="info"></p>
     <div>
@@ -32,7 +36,7 @@ send.addEventListener("click", async () => {
     info.innerText="You must enter a passcode."
   } else if (!invitev) {
     info.innerText="You must provide a Zoom invitation."
-  } else if (!invitev.includes("scheduled Zoom meeting") 
+  } else if (!invitev.includes("zoom.us/j/") 
     || !invitev.includes("https://")) {
     info.innerText("You must provide a valid Zoom invitation.")
   } else {
