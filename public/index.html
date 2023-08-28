@@ -7,19 +7,19 @@
     <title>Mom's Zoom Invitation</title>
   </head>
   <body>
-    <p>To send a Zoom invitation to Mom, paste it into the box below.</p>
-    <p>The invitation should include a line that looks like this:</p>
-    <p><strong>https://us02web.zoom.us/j/111222333</strong></p>
-    <p>(except with a valid meeting number at the end.)</p>
-    <
-    <p>You need to put in the correct passcode as well.</p>
+    <p>To send a Zoom invitation to Mom, paste it into the box below.
+      The invitation should include a line that looks like this:</p>
+    <p>https://us02web.zoom.us/j/111222333</p>
+    <p>(except with a valid meeting number at the end.) Or perhaps like this:</p>
+    <p>https://us02web.zoom.us/j/111222333?pwd=gobbledygook</p>
+    <p>You need to put in the correct passcode (for this application, not for the zoom) as well.</p>
     <p id="info"></p>
     <div>
     <label for="passcode">Passcode:</label>
     <input id="passcode" name="passcode" type="password">
     </div>
     <div>
-        <label for="invite">Invitation</label>
+        <label for="invite">Invitation:</label>
         <textarea id="invite" name="invite" rows="10" cols="40"></textarea>
     </div>
     <button id="send" type="button">Send</button>
@@ -30,15 +30,16 @@ const send = document.getElementById("send")
 const passcode = document.getElementById("passcode")
 const invite = document.getElementById("invite")
 send.addEventListener("click", async () => {
-  passcodev = passcode.value;
-  invitev = invite.value;
+  const passcodev = passcode.value;
+  const invitev = invite.value;
+  console.log("got here, invite is: ", invitev)
   if (!passcodev) {
     info.innerText="You must enter a passcode."
   } else if (!invitev) {
     info.innerText="You must provide a Zoom invitation."
   } else if (!invitev.includes("zoom.us/j/") 
     || !invitev.includes("https://")) {
-    info.innerText("You must provide a valid Zoom invitation.")
+    info.innerText = "You must provide a valid Zoom invitation."
   } else {
     info.innerText=("Sending, please wait ...")
     try {
