@@ -12,7 +12,7 @@ app.post("/",async (req,res) => {
    } else if (!req.body.invite) {
       res.status(400).json({message: "No invitation was sent."})
    } else {
-//      console.log("invitation: ", req.body.invite)
+      console.log("invitation: ", req.body.invite)
       const client = new ws(process.env.CONNECT_URL);
       client.on('error', (e) => console.log("ws error:", e))
       client.on('open', () => {
